@@ -1,0 +1,1381 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_INIFINITY_ANEDYA",
+      "label": "Inifinity_Anedya",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "yesoreyeram-infinity-datasource",
+      "pluginName": "Infinity"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "12.0.2"
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "yesoreyeram-infinity-datasource",
+      "name": "Infinity",
+      "version": "3.3.0"
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INIFINITY_ANEDYA}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Time"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "NODE"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "index": 0,
+                        "text": "Slave_1"
+                      },
+                      "1": {
+                        "index": 1,
+                        "text": "Slave_2"
+                      },
+                      "2": {
+                        "index": 2,
+                        "text": "Slave_3"
+                      },
+                      "3": {
+                        "index": 3,
+                        "text": "Slave_4"
+                      },
+                      "4": {
+                        "index": 4,
+                        "text": "Slave_5"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 4,
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "12.0.2",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "timestamp",
+              "text": "Time",
+              "type": "timestamp_epoch_s"
+            },
+            {
+              "selector": "value",
+              "text": "Temperature (°C)",
+              "type": "number"
+            }
+          ],
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "data.0198504f-33eb-7166-a1aa-828b476327e1",
+          "source": "url",
+          "type": "json",
+          "url": "https://api.ap-in-1.anedya.io/v1/data/getData",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_type": "raw",
+            "data": "{\n  \"variable\": \"temperature\",\n  \"nodes\": [\"0198504f-33eb-7166-a1aa-828b476327e1\"],\n  \"from\": ${__from:date:seconds},\n  \"to\": ${__to:date:seconds},\n  \"limit\": 100,\n  \"order\": \"asc\"\n}\n\n",
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer 5a758b336f87fc68dc1a74502d7f56fcd51f334fc6b533520a668c62fdd945d8"
+              }
+            ],
+            "method": "POST"
+          },
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INIFINITY_ANEDYA}"
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "timestamp",
+              "text": "Time",
+              "type": "timestamp_epoch_s"
+            },
+            {
+              "selector": "value",
+              "text": "Humidity",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INIFINITY_ANEDYA}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "B",
+          "root_selector": "data.01985045-58ea-7ae9-932f-825381cccc50",
+          "source": "url",
+          "type": "json",
+          "url": "https://api.ap-in-1.anedya.io/v1/data/getData",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_type": "raw",
+            "data": "{\r\n  \"variable\": \"humidity\",\r\n  \"nodes\": [\"01985045-58ea-7ae9-932f-825381cccc50\"],\r\n  \"from\": ${__from:date:seconds},\r\n  \"to\": ${__to:date:seconds},\r\n  \"limit\": 100,\r\n  \"order\": \"asc\"\r\n}",
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer 5a758b336f87fc68dc1a74502d7f56fcd51f334fc6b533520a668c62fdd945d8"
+              }
+            ],
+            "method": "POST"
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "timestamp",
+              "text": "Time",
+              "type": "timestamp_epoch_s"
+            },
+            {
+              "selector": "value",
+              "text": "SoilMoisture",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INIFINITY_ANEDYA}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "C",
+          "root_selector": "data.01985046-6440-79ae-a21e-994f04f2dfc1",
+          "source": "url",
+          "type": "json",
+          "url": "https://api.ap-in-1.anedya.io/v1/data/getData",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_type": "raw",
+            "data": "{\r\n  \"variable\": \"SoilMoisture\",\r\n  \"nodes\": [\"01985046-6440-79ae-a21e-994f04f2dfc1\"],\r\n  \"from\": ${__from:date:seconds},\r\n  \"to\": ${__to:date:seconds},\r\n  \"limit\": 100,\r\n  \"order\": \"asc\"\r\n}",
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer 5a758b336f87fc68dc1a74502d7f56fcd51f334fc6b533520a668c62fdd945d8"
+              }
+            ],
+            "method": "POST"
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "timestamp",
+              "text": "Time",
+              "type": "timestamp_epoch_s"
+            },
+            {
+              "selector": "value",
+              "text": "UVINDEX",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INIFINITY_ANEDYA}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "D",
+          "root_selector": "data.01985046-bd70-7d43-b38b-5792e0dd43be",
+          "source": "url",
+          "type": "json",
+          "url": "https://api.ap-in-1.anedya.io/v1/data/getData",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_type": "raw",
+            "data": "{\r\n  \"variable\": \"UVINDEX\",\r\n  \"nodes\": [\"01985046-bd70-7d43-b38b-5792e0dd43be\"],\r\n  \"from\": ${__from:date:seconds},\r\n  \"to\": ${__to:date:seconds},\r\n  \"limit\": 100,\r\n  \"order\": \"asc\"\r\n}",
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer 5a758b336f87fc68dc1a74502d7f56fcd51f334fc6b533520a668c62fdd945d8"
+              }
+            ],
+            "method": "POST"
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "timestamp",
+              "text": "Time",
+              "type": "timestamp_epoch_s"
+            },
+            {
+              "selector": "value",
+              "text": "UVINDEX",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INIFINITY_ANEDYA}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "E",
+          "root_selector": "data.01985045-def6-7379-a7ea-309113ee6f66",
+          "source": "url",
+          "type": "json",
+          "url": "https://api.ap-in-1.anedya.io/v1/data/getData",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_type": "raw",
+            "data": "{\r\n  \"variable\": \"AQI\",\r\n  \"nodes\": [\"01985045-def6-7379-a7ea-309113ee6f66\"],\r\n  \"from\": ${__from:date:seconds},\r\n  \"to\": ${__to:date:seconds},\r\n  \"limit\": 100,\r\n  \"order\": \"asc\"\r\n}",
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer 5a758b336f87fc68dc1a74502d7f56fcd51f334fc6b533520a668c62fdd945d8"
+              }
+            ],
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "A_Dashboard",
+      "transformations": [
+        {
+          "id": "joinByField",
+          "options": {
+            "mode": "inner"
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "NODE",
+            "mode": "index",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "Humidity B": 3,
+              "NODE": 0,
+              "SoilMoisture C": 4,
+              "Temperature (°C) A": 2,
+              "Time": 1,
+              "UVINDEX D": 5,
+              "UVINDEX E": 6
+            },
+            "renameByName": {}
+          }
+        },
+        {
+          "id": "limit",
+          "options": {
+            "limitField": "5"
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INIFINITY_ANEDYA}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.0.2",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "timestamp",
+              "text": "time",
+              "type": "timestamp_epoch_s"
+            },
+            {
+              "selector": "value",
+              "text": "Temperature",
+              "type": "number"
+            }
+          ],
+          "computed_columns": [
+            {
+              "expression": "$ * 1000",
+              "selector": "timestamp",
+              "text": "time",
+              "type": "number"
+            }
+          ],
+          "filters": [],
+          "format": "timeseries",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "data.0198504f-33eb-7166-a1aa-828b476327e1",
+          "source": "url",
+          "type": "json",
+          "url": "https://api.ap-in-1.anedya.io/v1/data/getData",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_type": "raw",
+            "data": "{\n  \"variable\": \"temperature\",\n  \"nodes\": [\"0198504f-33eb-7166-a1aa-828b476327e1\"],\n  \"from\": ${__from:date:seconds},\n  \"to\": ${__to:date:seconds},\n  \"limit\": 100,\n  \"order\": \"asc\"\n}",
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer 5a758b336f87fc68dc1a74502d7f56fcd51f334fc6b533520a668c62fdd945d8"
+              }
+            ],
+            "method": "POST"
+          },
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INIFINITY_ANEDYA}"
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "timestamp",
+              "text": "time",
+              "type": "timestamp_epoch_s"
+            },
+            {
+              "selector": "value",
+              "text": "Humidity",
+              "type": "number"
+            }
+          ],
+          "computed_columns": [
+            {
+              "expression": "$ * 1000",
+              "selector": "timestamp",
+              "text": "time",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INIFINITY_ANEDYA}"
+          },
+          "filters": [],
+          "format": "timeseries",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "B",
+          "root_selector": "data.01985045-58ea-7ae9-932f-825381cccc50",
+          "source": "url",
+          "type": "json",
+          "url": "https://api.ap-in-1.anedya.io/v1/data/getData",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_type": "raw",
+            "data": "{\n  \"variable\": \"humidity\",\n  \"nodes\": [\"01985045-58ea-7ae9-932f-825381cccc50\"],\n  \"from\": ${__from:date:seconds},\n  \"to\": ${__to:date:seconds},\n  \"limit\": 100,\n  \"order\": \"asc\"\n}",
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer 5a758b336f87fc68dc1a74502d7f56fcd51f334fc6b533520a668c62fdd945d8"
+              }
+            ],
+            "method": "POST"
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "timestamp",
+              "text": "time",
+              "type": "timestamp_epoch_s"
+            },
+            {
+              "selector": "value",
+              "text": "SoilMoisture",
+              "type": "number"
+            }
+          ],
+          "computed_columns": [
+            {
+              "expression": "$ * 1000",
+              "selector": "timestamp",
+              "text": "time",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INIFINITY_ANEDYA}"
+          },
+          "filters": [],
+          "format": "timeseries",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "C",
+          "root_selector": "data.01985046-6440-79ae-a21e-994f04f2dfc1",
+          "source": "url",
+          "type": "json",
+          "url": "https://api.ap-in-1.anedya.io/v1/data/getData",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_type": "raw",
+            "data": "{\n  \"variable\": \"SoilMoisture\",\n  \"nodes\": [\"01985046-6440-79ae-a21e-994f04f2dfc1\"],\n  \"from\": ${__from:date:seconds},\n  \"to\": ${__to:date:seconds},\n  \"limit\": 100,\n  \"order\": \"asc\"\n}",
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer 5a758b336f87fc68dc1a74502d7f56fcd51f334fc6b533520a668c62fdd945d8"
+              }
+            ],
+            "method": "POST"
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "timestamp",
+              "text": "time",
+              "type": "timestamp_epoch_s"
+            },
+            {
+              "selector": "value",
+              "text": "AQI",
+              "type": "number"
+            }
+          ],
+          "computed_columns": [
+            {
+              "expression": "$ * 1000",
+              "selector": "timestamp",
+              "text": "time",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INIFINITY_ANEDYA}"
+          },
+          "filters": [],
+          "format": "timeseries",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "D",
+          "root_selector": "data.01985045-def6-7379-a7ea-309113ee6f66",
+          "source": "url",
+          "type": "json",
+          "url": "https://api.ap-in-1.anedya.io/v1/data/getData",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_type": "raw",
+            "data": "{\n  \"variable\": \"AQI\",\n  \"nodes\": [\"01985045-def6-7379-a7ea-309113ee6f66\"],\n  \"from\": ${__from:date:seconds},\n  \"to\": ${__to:date:seconds},\n  \"limit\": 100,\n  \"order\": \"asc\"\n}",
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer 5a758b336f87fc68dc1a74502d7f56fcd51f334fc6b533520a668c62fdd945d8"
+              }
+            ],
+            "method": "POST"
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "timestamp",
+              "text": "time",
+              "type": "timestamp_epoch_s"
+            },
+            {
+              "selector": "value",
+              "text": "UVINDEX",
+              "type": "number"
+            }
+          ],
+          "computed_columns": [
+            {
+              "expression": "$ * 1000",
+              "selector": "timestamp",
+              "text": "time",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INIFINITY_ANEDYA}"
+          },
+          "filters": [],
+          "format": "timeseries",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "E",
+          "root_selector": "data.01985046-bd70-7d43-b38b-5792e0dd43be",
+          "source": "url",
+          "type": "json",
+          "url": "https://api.ap-in-1.anedya.io/v1/data/getData",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_type": "raw",
+            "data": "{\n  \"variable\": \"UVINDEX\",\n  \"nodes\": [\"01985046-bd70-7d43-b38b-5792e0dd43be\"],\n  \"from\": ${__from:date:seconds},\n  \"to\": ${__to:date:seconds},\n  \"limit\": 100,\n  \"order\": \"asc\"\n}",
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer 5a758b336f87fc68dc1a74502d7f56fcd51f334fc6b533520a668c62fdd945d8"
+              }
+            ],
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Time series ",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INIFINITY_ANEDYA}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 25,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 7
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "hidden",
+          "placement": "right",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.0.2",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "timestamp",
+              "text": "time",
+              "type": "timestamp_epoch_s"
+            },
+            {
+              "selector": "value",
+              "text": "Temperature",
+              "type": "number"
+            }
+          ],
+          "computed_columns": [
+            {
+              "expression": "$ * 1000",
+              "selector": "timestamp",
+              "text": "time",
+              "type": "number"
+            }
+          ],
+          "filters": [],
+          "format": "timeseries",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "data.0198504f-33eb-7166-a1aa-828b476327e1",
+          "source": "url",
+          "type": "json",
+          "url": "https://api.ap-in-1.anedya.io/v1/data/getData",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_type": "raw",
+            "data": "{\n  \"variable\": \"temperature\",\n  \"nodes\": [\"0198504f-33eb-7166-a1aa-828b476327e1\"],\n  \"from\": ${__from:date:seconds},\n  \"to\": ${__to:date:seconds},\n  \"limit\": 100,\n  \"order\": \"asc\"\n}",
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer 5a758b336f87fc68dc1a74502d7f56fcd51f334fc6b533520a668c62fdd945d8"
+              }
+            ],
+            "method": "POST"
+          },
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INIFINITY_ANEDYA}"
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "timestamp",
+              "text": "time",
+              "type": "timestamp_epoch_s"
+            },
+            {
+              "selector": "value",
+              "text": "Humidity",
+              "type": "number"
+            }
+          ],
+          "computed_columns": [
+            {
+              "expression": "$ * 1000",
+              "selector": "timestamp",
+              "text": "time",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INIFINITY_ANEDYA}"
+          },
+          "filters": [],
+          "format": "timeseries",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "B",
+          "root_selector": "data.01985045-58ea-7ae9-932f-825381cccc50",
+          "source": "url",
+          "type": "json",
+          "url": "https://api.ap-in-1.anedya.io/v1/data/getData",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_type": "raw",
+            "data": "{\n  \"variable\": \"humidity\",\n  \"nodes\": [\"01985045-58ea-7ae9-932f-825381cccc50\"],\n  \"from\": ${__from:date:seconds},\n  \"to\": ${__to:date:seconds},\n  \"limit\": 100,\n  \"order\": \"asc\"\n}",
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer 5a758b336f87fc68dc1a74502d7f56fcd51f334fc6b533520a668c62fdd945d8"
+              }
+            ],
+            "method": "POST"
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "timestamp",
+              "text": "time",
+              "type": "timestamp_epoch_s"
+            },
+            {
+              "selector": "value",
+              "text": "SoilMoisture",
+              "type": "number"
+            }
+          ],
+          "computed_columns": [
+            {
+              "expression": "$ * 1000",
+              "selector": "timestamp",
+              "text": "time",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INIFINITY_ANEDYA}"
+          },
+          "filters": [],
+          "format": "timeseries",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "C",
+          "root_selector": "data.01985046-6440-79ae-a21e-994f04f2dfc1",
+          "source": "url",
+          "type": "json",
+          "url": "https://api.ap-in-1.anedya.io/v1/data/getData",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_type": "raw",
+            "data": "{\n  \"variable\": \"SoilMoisture\",\n  \"nodes\": [\"01985046-6440-79ae-a21e-994f04f2dfc1\"],\n  \"from\": ${__from:date:seconds},\n  \"to\": ${__to:date:seconds},\n  \"limit\": 100,\n  \"order\": \"asc\"\n}",
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer 5a758b336f87fc68dc1a74502d7f56fcd51f334fc6b533520a668c62fdd945d8"
+              }
+            ],
+            "method": "POST"
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "timestamp",
+              "text": "time",
+              "type": "timestamp_epoch_s"
+            },
+            {
+              "selector": "value",
+              "text": "UVINDEX",
+              "type": "number"
+            }
+          ],
+          "computed_columns": [
+            {
+              "expression": "$ * 1000",
+              "selector": "timestamp",
+              "text": "time",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INIFINITY_ANEDYA}"
+          },
+          "filters": [],
+          "format": "timeseries",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "D",
+          "root_selector": "data.01985046-bd70-7d43-b38b-5792e0dd43be",
+          "source": "url",
+          "type": "json",
+          "url": "https://api.ap-in-1.anedya.io/v1/data/getData",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_type": "raw",
+            "data": "{\n  \"variable\": \"UVINDEX\",\n  \"nodes\": [\"01985046-bd70-7d43-b38b-5792e0dd43be\"],\n  \"from\": ${__from:date:seconds},\n  \"to\": ${__to:date:seconds},\n  \"limit\": 100,\n  \"order\": \"asc\"\n}",
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer 5a758b336f87fc68dc1a74502d7f56fcd51f334fc6b533520a668c62fdd945d8"
+              }
+            ],
+            "method": "POST"
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "timestamp",
+              "text": "time",
+              "type": "timestamp_epoch_s"
+            },
+            {
+              "selector": "value",
+              "text": "AQI",
+              "type": "number"
+            }
+          ],
+          "computed_columns": [
+            {
+              "expression": "$ * 1000",
+              "selector": "timestamp",
+              "text": "time",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INIFINITY_ANEDYA}"
+          },
+          "filters": [],
+          "format": "timeseries",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "E",
+          "root_selector": "data.01985045-def6-7379-a7ea-309113ee6f66",
+          "source": "url",
+          "type": "json",
+          "url": "https://api.ap-in-1.anedya.io/v1/data/getData",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_type": "raw",
+            "data": "{\n  \"variable\": \"AQI\",\n  \"nodes\": [\"01985045-def6-7379-a7ea-309113ee6f66\"],\n  \"from\": ${__from:date:seconds},\n  \"to\": ${__to:date:seconds},\n  \"limit\": 100,\n  \"order\": \"asc\"\n}",
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer 5a758b336f87fc68dc1a74502d7f56fcd51f334fc6b533520a668c62fdd945d8"
+              }
+            ],
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Time_series",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_INIFINITY_ANEDYA}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 7
+      },
+      "id": 3,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "12.0.2",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "timestamp",
+              "text": "time",
+              "type": "timestamp_epoch_s"
+            },
+            {
+              "selector": "value",
+              "text": "Temperature",
+              "type": "number"
+            }
+          ],
+          "computed_columns": [
+            {
+              "expression": "$ * 1000",
+              "selector": "timestamp",
+              "text": "time",
+              "type": "number"
+            }
+          ],
+          "filters": [],
+          "format": "timeseries",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "data.0198504f-33eb-7166-a1aa-828b476327e1",
+          "source": "url",
+          "type": "json",
+          "url": "https://api.ap-in-1.anedya.io/v1/data/getData",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_type": "raw",
+            "data": "{\n  \"variable\": \"temperature\",\n  \"nodes\": [\"0198504f-33eb-7166-a1aa-828b476327e1\"],\n  \"from\": ${__from:date:seconds},\n  \"to\": ${__to:date:seconds},\n  \"limit\": 100,\n  \"order\": \"asc\"\n}",
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer 5a758b336f87fc68dc1a74502d7f56fcd51f334fc6b533520a668c62fdd945d8"
+              }
+            ],
+            "method": "POST"
+          },
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INIFINITY_ANEDYA}"
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "timestamp",
+              "text": "time",
+              "type": "timestamp_epoch_s"
+            },
+            {
+              "selector": "value",
+              "text": "Humidity",
+              "type": "number"
+            }
+          ],
+          "computed_columns": [
+            {
+              "expression": "$ * 1000",
+              "selector": "timestamp",
+              "text": "time",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INIFINITY_ANEDYA}"
+          },
+          "filters": [],
+          "format": "timeseries",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "B",
+          "root_selector": "data.01985045-58ea-7ae9-932f-825381cccc50",
+          "source": "url",
+          "type": "json",
+          "url": "https://api.ap-in-1.anedya.io/v1/data/getData",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_type": "raw",
+            "data": "{\n  \"variable\": \"humidity\",\n  \"nodes\": [\"01985045-58ea-7ae9-932f-825381cccc50\"],\n  \"from\":${__from:date:seconds},\n  \"to\": ${__to:date:seconds},\n  \"limit\": 100,\n  \"order\": \"asc\"\n}",
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer 5a758b336f87fc68dc1a74502d7f56fcd51f334fc6b533520a668c62fdd945d8"
+              }
+            ],
+            "method": "POST"
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "timestamp",
+              "text": "time",
+              "type": "timestamp_epoch_s"
+            },
+            {
+              "selector": "value",
+              "text": "SoilMoisture",
+              "type": "number"
+            }
+          ],
+          "computed_columns": [
+            {
+              "expression": "$ * 1000",
+              "selector": "timestamp",
+              "text": "time",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INIFINITY_ANEDYA}"
+          },
+          "filters": [],
+          "format": "timeseries",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "C",
+          "root_selector": "data.01985046-6440-79ae-a21e-994f04f2dfc1",
+          "source": "url",
+          "type": "json",
+          "url": "https://api.ap-in-1.anedya.io/v1/data/getData",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_type": "raw",
+            "data": "{\n  \"variable\": \"SoilMoisture\",\n  \"nodes\": [\"01985046-6440-79ae-a21e-994f04f2dfc1\"],\n  \"from\":${__from:date:seconds},\n  \"to\": ${__to:date:seconds},\n  \"limit\": 100,\n  \"order\": \"asc\"\n}",
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer 5a758b336f87fc68dc1a74502d7f56fcd51f334fc6b533520a668c62fdd945d8"
+              }
+            ],
+            "method": "POST"
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "timestamp",
+              "text": "time",
+              "type": "timestamp_epoch_s"
+            },
+            {
+              "selector": "value",
+              "text": "UVINDEX",
+              "type": "number"
+            }
+          ],
+          "computed_columns": [
+            {
+              "expression": "$ * 1000",
+              "selector": "timestamp",
+              "text": "time",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INIFINITY_ANEDYA}"
+          },
+          "filters": [],
+          "format": "timeseries",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "D",
+          "root_selector": "data.01985046-bd70-7d43-b38b-5792e0dd43be",
+          "source": "url",
+          "type": "json",
+          "url": "https://api.ap-in-1.anedya.io/v1/data/getData",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_type": "raw",
+            "data": "{\n  \"variable\": \"UVINDEX\",\n  \"nodes\": [\"01985046-bd70-7d43-b38b-5792e0dd43be\"],\n  \"from\":${__from:date:seconds},\n  \"to\": ${__to:date:seconds},\n  \"limit\": 100,\n  \"order\": \"asc\"\n}",
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer 5a758b336f87fc68dc1a74502d7f56fcd51f334fc6b533520a668c62fdd945d8"
+              }
+            ],
+            "method": "POST"
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "timestamp",
+              "text": "time",
+              "type": "timestamp_epoch_s"
+            },
+            {
+              "selector": "value",
+              "text": "AQI",
+              "type": "number"
+            }
+          ],
+          "computed_columns": [
+            {
+              "expression": "$ * 1000",
+              "selector": "timestamp",
+              "text": "time",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_INIFINITY_ANEDYA}"
+          },
+          "filters": [],
+          "format": "timeseries",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "E",
+          "root_selector": "data.01985045-def6-7379-a7ea-309113ee6f66",
+          "source": "url",
+          "type": "json",
+          "url": "https://api.ap-in-1.anedya.io/v1/data/getData",
+          "url_options": {
+            "body_content_type": "application/json",
+            "body_type": "raw",
+            "data": "{\n  \"variable\": \"AQI\",\n  \"nodes\": [\"01985045-def6-7379-a7ea-309113ee6f66\"],\n  \"from\":${__from:date:seconds},\n  \"to\": ${__to:date:seconds},\n  \"limit\": 100,\n  \"order\": \"asc\"\n}",
+            "headers": [
+              {
+                "key": "Authorization",
+                "value": "Bearer 5a758b336f87fc68dc1a74502d7f56fcd51f334fc6b533520a668c62fdd945d8"
+              }
+            ],
+            "method": "POST"
+          }
+        }
+      ],
+      "title": "Gauge Visualization",
+      "transparent": true,
+      "type": "gauge"
+    }
+  ],
+  "refresh": "auto",
+  "schemaVersion": 41,
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "2025-08-08T07:34:36.000Z",
+    "to": "2025-08-08T07:54:36.000Z"
+  },
+  "timepicker": {},
+  "timezone": "Asia/Kolkata",
+  "title": "Anedya Temperature Dashboard",
+  "uid": "e956d60e-9cde-4fad-8bcb-e78e9f47d623",
+  "version": 37,
+  "weekStart": ""
+}
