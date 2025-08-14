@@ -39,9 +39,9 @@ flowchart LR
     MCU -->|Wi-Fi| API[Python REST API]
     API -->|HTTP POST| Cloud[Anedya IoT Cloud]
     Cloud --> Grafana[Grafana Dashboard]
-    MCU --> OLED["0.96 inch" OLED Display]
+    MCU --> OLED[point96 inch OLED Display]
 
-🔧 Hardware Components
+Hardware Components
 1️⃣ DHT11 / DHT22 Sensor
 Function: Measures temperature and humidity.
 How it works:
